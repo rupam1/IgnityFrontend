@@ -34,11 +34,13 @@ public class LoginPage {
 	
 	public void SetEmail(String stremail)
 	{
+		email.clear();
 		email.sendKeys(stremail);
 	}
 	
 	public void SetPassword(String strpassword)
 	{
+		password.clear();
 		password.sendKeys(strpassword);
 	}
 	

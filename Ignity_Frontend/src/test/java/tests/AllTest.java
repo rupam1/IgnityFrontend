@@ -45,5 +45,26 @@ public class AllTest extends Base {
 		Assert.assertEquals(EmailPasswordErrorMessag, "The email or password you have entered is invalid");
 		
 	}
+	
+	@Test(priority=4)
+	public void CheckWrongUsernameCorrectPassword()
+	{
+		LoginPage loginpage = PageFactory.initElements(driver, LoginPage.class);
+		loginpage.SetEmail("rupam@m.com");
+		loginpage.SetPassword("Rupam@@100");
+		loginpage.ClickLoginButton();
+		Assert.assertEquals(loginpage.EmailPasswordErrorMessage(), "The email or password you have entered is invalid");
+		
+	}
+	
+	@Test(priority=5)
+	public void WrongUsernamePassword()
+	{
+		LoginPage loginpage = PageFactory.initElements(driver, LoginPage.class);
+		loginpage.SetEmail("rupam@m.com");
+		loginpage.SetPassword("rupam");
+		loginpage.ClickLoginButton();
+		Assert.assertEquals(loginpage.EmailPasswordErrorMessage(), "The email or password you have entered is invalid");
+	}
 
 }
