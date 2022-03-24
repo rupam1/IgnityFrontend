@@ -66,5 +66,15 @@ public class AllTest extends Base {
 		loginpage.ClickLoginButton();
 		Assert.assertEquals(loginpage.EmailPasswordErrorMessage(), "The email or password you have entered is invalid");
 	}
+	
+	@Test(priority=6)
+	public void SuccessfulLogin()
+	{
+		LoginPage loginpage = PageFactory.initElements(driver, LoginPage.class);
+		loginpage.SetEmail("rupam@metatude.com");
+		loginpage.SetPassword("Rupam@@100");
+		loginpage.ClickLoginButton();
+		Assert.assertEquals(loginpage.LogoutButtonFound(), "LOG OUT");
+	}
 
 }

@@ -12,6 +12,7 @@ public class LoginPage {
 	@FindBy(xpath = "//span[contains(.,'Please enter a valid email address')]") WebElement emailvaliderrormsg;
 	@FindBy(xpath = "//button[contains(@type,'submit')]") WebElement loginbutton;
 	@FindBy(xpath = "//div[contains(@class,'error-msg-container')]") WebElement emailpasserrormsg;
+	@FindBy(xpath = "//div[@class='navigation-item'][contains(.,'Log out')]") WebElement logoutbtn;
 	
 	public String EmailErrorMessage()
 	{
@@ -64,6 +65,12 @@ public class LoginPage {
 	{
 		String validerrormessage  = emailvaliderrormsg.getText();
 		return validerrormessage;
+	}
+	
+	public String LogoutButtonFound()
+	{
+		String logbtn = logoutbtn.getText();
+		return logbtn;
 	}
 
 }
