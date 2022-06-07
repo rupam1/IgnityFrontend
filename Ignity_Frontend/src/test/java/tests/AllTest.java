@@ -9,6 +9,23 @@ import pages.LoginPage;
 public class AllTest extends Base {
 	
 	@Test(priority=0)
+	public void ISIgnityPageLoaded() 
+	{
+		LoginPage loginpage = PageFactory.initElements(driver, LoginPage.class);
+		Assert.assertTrue(loginpage.ChkLoginbtnDisplayed(), "Ignity page Appears"); 
+	}
+	
+	@Test(priority=1)
+	public void EmailPasswordIsEmplty()
+	{
+		LoginPage loginpage = PageFactory.initElements(driver, LoginPage.class);
+		loginpage.SetEmail("");
+		loginpage.SetPassword("");
+		Assert.assertFalse(loginpage.ChkLoginbtnEnabled(), "Login Button is disabled"); 
+		
+	}
+	
+	@Test(priority=2)
 	
 	public void EmailErrorMessageCheck()
 	{
@@ -17,7 +34,7 @@ public class AllTest extends Base {
 		Assert.assertEquals(emailerrormsg, "Please provide your email");
 	}
 	
-	@Test(priority=1)
+	@Test(priority=3)
 	public void PasswordErrorMessagecheck()
 	{
 		LoginPage loginpage = PageFactory.initElements(driver, LoginPage.class);
@@ -25,7 +42,7 @@ public class AllTest extends Base {
 		Assert.assertEquals(passworderrormsg, "Please provide your password");
 	}
 	
-	@Test(priority=2)
+	@Test(priority=4)
 	public void ValidEmailErrorMessageCheck()
 	{
 		LoginPage loginpage = PageFactory.initElements(driver, LoginPage.class);
@@ -34,7 +51,7 @@ public class AllTest extends Base {
 		Assert.assertEquals(loginpage.ValidEmailErrorMesage(), "Please enter a valid email address");
 	}
 	
-	@Test(priority=3)
+	@Test(priority=5)
 	public void CheckCorrectUserNameWrongPassword()
 	{
 		LoginPage loginpage = PageFactory.initElements(driver, LoginPage.class);
@@ -46,7 +63,7 @@ public class AllTest extends Base {
 		
 	}
 	
-	@Test(priority=4)
+	@Test(priority=6)
 	public void CheckWrongUsernameCorrectPassword()
 	{
 		LoginPage loginpage = PageFactory.initElements(driver, LoginPage.class);
@@ -57,7 +74,7 @@ public class AllTest extends Base {
 		
 	}
 	
-	@Test(priority=5)
+	@Test(priority=7)
 	public void WrongUsernamePassword()
 	{
 		LoginPage loginpage = PageFactory.initElements(driver, LoginPage.class);
@@ -67,12 +84,12 @@ public class AllTest extends Base {
 		Assert.assertEquals(loginpage.EmailPasswordErrorMessage(), "The email or password you have entered is invalid");
 	}
 	
-	@Test(priority=6)
+	@Test(priority=8)
 	public void SuccessfulLogin()
 	{
 		LoginPage loginpage = PageFactory.initElements(driver, LoginPage.class);
 		loginpage.SetEmail("rupam@metatude.com");
-		loginpage.SetPassword("Rupam@@100");
+		loginpage.SetPassword("Rupam!@100");
 		loginpage.ClickLoginButton();
 		Assert.assertEquals(loginpage.LogoutButtonFound(), "LOG OUT");
 	}

@@ -72,5 +72,17 @@ public class LoginPage {
 		String logbtn = logoutbtn.getText();
 		return logbtn;
 	}
+	
+	public Boolean ChkLoginbtnDisplayed()
+	{
+		Boolean loginbuttonDisplayed = loginbutton.isDisplayed();
+		return loginbuttonDisplayed;
+	}
+	
+	public Boolean ChkLoginbtnEnabled()
+	{
+		Boolean loginbuttonEnabled =  loginbutton.isEnabled();
+		return loginbuttonEnabled;
+	}
 
 }
