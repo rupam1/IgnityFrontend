@@ -1,7 +1,9 @@
 package pages;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
@@ -19,6 +21,9 @@ public class CustomerSelection {
 	@FindBy(xpath = "(//select[@class='form-control dropdown-selection'])[2]") WebElement Status;
 	@FindBy(xpath = ".//td[4][.//text()[starts-with(., 'Active extended')]]") List<WebElement> ActiveExtended;
 	@FindBy(xpath = ".//td[4][.//text()[starts-with(., 'Active')]]") List<WebElement> Active;
+	@FindBy(xpath = "//input[contains(@type,'text')]") WebElement Searchbox;
+	@FindBy(xpath = ".//td[1][.//text()[contains(., '')]]") List<WebElement> Customername;
+	@FindBy(xpath = "//p[@class='data-not-fonud'][contains(.,'No records found')]") WebElement Datanotfound;
 	
 	
 	public String CustomerPageTitle()
@@ -37,17 +42,25 @@ public class CustomerSelection {
 		dropdown.selectByValue("1");
 		List<WebElement> tableRows = regular;
 		tblsize = tableRows.size();
-		for(WebElement ele :tableRows) {
-		    //System.out.println(ele.getText());
-			String a= ele.getText();
-			if(a.equals("Regular"))
+		if(tblsize>0)
+		{
+			for(WebElement ele :tableRows) 
 			{
-			c++;
-			}
+		    //System.out.println(ele.getText());
+				String a= ele.getText();
+				if(a.equals("Regular"))
+				{
+					c++;
+				}
+				else
+				{
+					break;
+				}
 			
+			}
 		}
 		
-		if (tblsize == c)
+		if (tblsize == c || tblsize==0)
 			return "Regular";
 		else
 			return "NonRegular";
@@ -62,17 +75,23 @@ public class CustomerSelection {
 		dropdown.selectByVisibleText("Free");
 		List<WebElement> tableRows = free;
 		tblsize = tableRows.size();
-		
-		for(WebElement ele :tableRows)
+		if(tblsize>0)
 		{
-			String a = ele.getText();
-			if(a.equals("Free"))
+			for(WebElement ele :tableRows)
 			{
-				c++;
+				String a = ele.getText();
+				if(a.equals("Free"))
+				{
+					c++;
+				}
+				else
+				{
+					break;
+				}
 			}
 		}
 		
-		if(tblsize == c)
+		if(tblsize == c || tblsize==0)
 			return "Free";
 		else
 			return "NonFree";
@@ -87,16 +106,23 @@ public class CustomerSelection {
 		dropdown.selectByVisibleText("Paid");
 		List<WebElement> tableRows = paid;
 		tblsize = tableRows.size();
-		for(WebElement ele : tableRows)
+		if(tblsize>0)
 		{
-			String a = ele.getText();
-			if(a.equals("Paid"))
+			for(WebElement ele : tableRows)
 			{
-				c++;
+				String a = ele.getText();
+				if(a.equals("Paid"))
+				{
+					c++;
+				}
+				else
+				{
+					break;
+				}
 			}
 		}
 		
-		if(tblsize == c)
+		if(tblsize == c || tblsize==0)
 			return "Paid";
 		else
 			return "NonPaid";
@@ -112,16 +138,24 @@ public class CustomerSelection {
 		dropdown.selectByVisibleText("All");
 		List<WebElement> tblrows = all;
 		tblsize = tblrows.size();
-		for(WebElement ele : tblrows)
+		if(tblsize>0)
 		{
-			a= ele.getText();
-			if(a== "Regular" || a== "Paid" || a== "Free")
+			for(WebElement ele : tblrows)
 			{
-				c++;
+				a= ele.getText();
+				if(a== "Regular" || a== "Paid" || a== "Free")
+				{
+					c++;
+				}
+				else
+				{
+					
+					break;
+				}
 			}
 		}
 		
-		if(tblsize == c)
+		if(tblsize == c || tblsize==0 )
 			return "All";
 		else
 			return "Not All"; 
@@ -137,20 +171,24 @@ public class CustomerSelection {
 		dropdown.selectByVisibleText("Active extended");
 		List<WebElement> actex = ActiveExtended;
 		tblsize= actex.size();
-		
-		for(WebElement ele : actex )
+		if(tblsize>0)
 		{
-			if(ele.getText().equals("Active extended"))
+			for(WebElement ele : actex )
+			{
+				if(ele.getText().equals("Active extended"))
 					{
 				 		c++;
 						flag=1;
 					}
-			else
-				flag=0;
-				break;
+				else
+				{
+					flag=0;
+					break;
+				}
+			}
 		}
 		
-		if(flag==1 || tblsize==c )
+		if(flag==1 || tblsize==c || tblsize==0 )
 			return "Active extended";
 		else
 			return "Active is not extended";
@@ -165,23 +203,126 @@ public class CustomerSelection {
 		dropdown.selectByVisibleText("Active");
 		List<WebElement> actv = Active;
 		tblsize=actv.size();
-		for (WebElement ele : actv)
+		if(tblsize>0)
 		{
-			if(ele.getText().contains("Active"))
+			for (WebElement ele : actv)
 			{
-				c++;
-				flag=1;
+				if(ele.getText().contains("Active"))
+				{
+					c++;
+					flag=1;
+				}
+				else
+				{
+					flag=0;
+					break;
+				}
 			}
-			else
-				flag=0;
-				break;
 		}
 		
-		if(flag==1 || tblsize==c )
+		if(flag==1 || tblsize==c || tblsize==0)
 			return "Active";
 		else
 			return "NonActive";
 		
 	}
+	
+	public String CheckSearchBox(String strsearch)
+	{
+		//Searchbox.sendKeys(strsearch);
+		
+		List<WebElement> bb = Customername;
+		String tt,dd;
+		int rr=0,gg=0, flag=0;
+		//String arr[]= new String[10];
+		//String arr1[]= new String[10];
+		List<String> list = new ArrayList<String>();
+		List<String> list1 = new ArrayList<String>();
+		
+		
+		for (WebElement ele : bb)
+		{
+			tt= ele.getText();
+			if(tt.contains(strsearch))
+			{
+				//arr[rr]=tt; 
+			    //System.out.println(arr[rr]);
+			    //rr++;
+				
+				list.add(tt);
+			}
+			
+		}
+		
+		Searchbox.sendKeys(strsearch);
+		List<WebElement> cc = Customername;
+		
+		for (WebElement ele : cc)
+		{
+			dd = ele.getText();
+			//arr1[gg]=dd;
+			//gg++;
+			//System.out.println(dd);
+			
+			list1.add(dd);
+			
+		}
+		
+		for(int i=0;i<list1.size();i++)
+		{
+			int yy = list1.size();
+			//String yr =  list.get(i);
+			//String gf = list1.get(i);
+			if(list.get(i).equals( list1.get(i)))
+			{
+				flag=1;
+			}
+			else
+			{
+				flag=0;
+				break;
+			}
+			
+		}
+		
+		if(flag==1)
+		{
+			return "Searching is working for searchbox";
+		}
+		else if (flag==0)
+		{
+			return "Searching is not working for searchbox";
+		}
+		
+		else
+			return "Nothing";
+	}
+		
+	/*
+		
+		for(rr=0, gg=0; rr<arr.length; rr++, gg++)
+		{
+			
+			if(arr[rr].equals(arr1[gg]))
+			{
+				flag=1;
+			}
+			
+			else
+				flag=0;
+			
+			
+		}
+	
+		if(flag==1)
+		{
+			return "Searched box is working";
+		}
+		else
+			return "Searched box is not working";
+		
+	}*/
+
 
 }
+			

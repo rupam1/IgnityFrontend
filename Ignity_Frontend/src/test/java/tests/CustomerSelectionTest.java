@@ -71,5 +71,14 @@ public class CustomerSelectionTest extends Base {
 		Assert.assertEquals(cusselec.CheckStatusWithActive(), "Active");
 	}
 	
+	@Test(priority=8)
+	public void ChkForSearchBox()
+	{
+		CustomerSelection cusselec = PageFactory.initElements(driver, CustomerSelection.class);
+		String hh = cusselec.CheckSearchBox("ul");
+		
+		Assert.assertEquals(hh, "Searching is working for searchbox");
+		
+	}
 
 }
